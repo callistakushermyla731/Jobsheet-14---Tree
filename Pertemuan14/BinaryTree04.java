@@ -13,25 +13,32 @@ public class BinaryTree04 {
 
     public void add(Mahasiswa04 mahasiswa) {
         Node04 newNode = new Node04(mahasiswa);
+
         if (isEmpty()) {
             root = newNode;
-        } else {
-            Node04 current = root;
-            Node04 parent = null;
-            while (true) {
-                parent = current;
-                if (mahasiswa.ipk < current.mahasiswa.ipk) {
-                    current = current.left;
-                    if (current == null) {
-                        parent.left = newNode;
-                        return; 
-                    } else {
-                        current = current.right;
-                        if (current == null) {
-                            parent.right = newNode;
-                            return;
-                        }
-                    }
+            return;
+        }
+
+        Node04 current = root;
+        Node04 parent;
+
+        while (true) {
+            parent = current;
+
+            if (mahasiswa.ipk < current.mahasiswa.ipk) {
+                current = current.left;
+
+                if (current == null) {
+                    parent.left = newNode;
+                    return;
+                }
+
+            } else {
+                current = current.right;
+
+                if (current == null) {
+                    parent.right = newNode;
+                    return;
                 }
             }
         }
@@ -44,7 +51,7 @@ public class BinaryTree04 {
             if (current.mahasiswa.ipk == ipk) {
                 result = true;
                 break;
-            } else if (ipk < current.mahasiswa.ipk) {
+            } else if (ipk > current.mahasiswa.ipk) {
                 current = current.right;
             } else {
                 current = current.left;
@@ -52,7 +59,7 @@ public class BinaryTree04 {
         }
         return result;
     }
-    
+
     public void traversePreOrder(Node04 node) {
         if (node != null) {
             node.mahasiswa.tampilInformasi();
@@ -96,7 +103,7 @@ public class BinaryTree04 {
             System.out.println("Binary tree kosong");
             return;
         }
-        //cari node (current) yg akan dihapus
+        // cari node (current) yg akan dihapus
         Node04 parent = root;
         Node04 current = root;
         boolean isLeftChild = false;
@@ -114,12 +121,12 @@ public class BinaryTree04 {
             }
         }
 
-        //penghapusan
+        // penghapusan
         if (current == null) {
             System.out.println("Data tidak ditemukan");
             return;
         } else {
-            //jika tidak ada anak (leaf), maka node dihapus
+            // jika tidak ada anak (leaf), maka node dihapus
             if (current.left == null && current.right == null) {
                 if (current == root) {
                     root = null;
@@ -152,8 +159,6 @@ public class BinaryTree04 {
                 }
             } else {
                 Node04 successor = getSuccessor(current);
-                System.out.println("Jika 2 anak, current = ");
-                successor.mahasiswa.tampilInformasi();
                 if (current == root) {
                     root = successor;
                 } else {
@@ -168,5 +173,3 @@ public class BinaryTree04 {
         }
     }
 }
-
-    
